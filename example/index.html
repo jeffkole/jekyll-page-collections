@@ -15,3 +15,10 @@ layout: default
   <li><a href="{{ team.url }}">{{ team.title }}</a></li>
 {% endfor %}
 </ul>
+
+<h1>Miscellaneous</h1>
+<ul>
+{% for misc in site.data['miscellaneous'] %}
+  <li><a href="{{ misc.url }}">{{ misc.title }}</a></li>
+{% endfor %}
+</ul>

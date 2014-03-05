@@ -2,3 +2,6 @@ page_collections:
 - projects:
     permalink: pretty
 - team:
+    permalink: /:title/
+- miscellaneous:
+    source: _misc
