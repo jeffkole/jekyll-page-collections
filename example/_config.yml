@@ -1,5 +1,4 @@
 page_collections:
 - projects:
-    permalink: :pretty
+    permalink: pretty
 - team:
-    permalink: :pretty
