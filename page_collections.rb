@@ -68,7 +68,7 @@ module Jekyll
       collections.each do |collection|
         name = collection.keys.first
         config = PageCollectionConfiguration.new(site, name)
-        pages = read_content(site, config, CollectionPage)
+        pages = read_content(site, config, CollectionPage).sort
         site.pages.concat(pages)
         site.data[name] = pages
       end
