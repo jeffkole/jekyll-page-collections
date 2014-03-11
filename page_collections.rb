@@ -51,6 +51,27 @@ module Jekyll
       "/#{@config.name}#{style}"
     end
 
+    def next
+      pages = self.site.data[@config.name]
+      pos = pages.index(self)
+
+      if pos && pos < pages.length-1
+        pages[pos+1]
+      else
+        nil
+      end
+    end
+
+    def previous
+      pages = self.site.data[@config.name]
+      pos = pages.index(self)
+      if pos && pos > 0
+        pages[pos-1]
+      else
+        nil
+      end
+    end
+
     # Methods from Page
 
     def uses_relative_permalinks
