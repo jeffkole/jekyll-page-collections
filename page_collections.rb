@@ -5,7 +5,14 @@ module Jekyll
     def initialize(site, name)
       @site_config = site.config
       @name = name
-      @config = (@site_config['page_collections'].find { |c| c.keys.first == @name }[@name]) || {}
+      @config = (@site_config['page_collections'].find { |c|
+        name = if c.is_a?(Hash)
+                   c.keys.first
+               else
+                   c.to_s
+               end
+        name == @name
+      }[@name]) || {}
     end
 
     def permalink_style
@@ -87,7 +94,11 @@ module Jekyll
     def generate(site)
       collections = site.config['page_collections'] || []
       collections.each do |collection|
-        name = collection.keys.first
+        name = if collection.is_a?(Hash)
+                   collection.keys.first
+               else
+                   collection.to_s
+               end
         config = PageCollectionConfiguration.new(site, name)
         pages = read_content(site, config, CollectionPage).sort
         site.pages.concat(pages)
