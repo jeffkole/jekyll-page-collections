@@ -47,6 +47,16 @@ page_collections:
     source: _misc
 ```
 
+## Usage
+
+Reference the collections from the `site.data` hash like so:
+
+```
+{% for project in site.data['projects'] %}
+  <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
+{% endfor %}
+```
+
 ## What's missing?
 
 Pagination.  I have not even tested to see if pagination works, but I get the
@@ -55,4 +65,3 @@ feeling it will not.
 ## Compatibility
 
 `jekyll-page-collections` has been tested with Jekyll 1.4.3.
-
