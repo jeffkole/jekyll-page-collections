@@ -2,6 +2,10 @@
 layout: default
 title: Jekyll Page Collections
 categories: [plugins, jekyll]
+tags:
+- plugins
+- jekyll
+- shared
 ---
 
 Jekyll Page Collections is a [Jekyll][jekyll] plugin to help create collections of pages

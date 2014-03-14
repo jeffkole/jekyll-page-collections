@@ -24,6 +24,41 @@ module Jekyll
     end
   end
 
+  # A collection of CollectionPages
+  class PageCollection
+    ATTRIBUTES_FOR_LIQUID = %w[
+      name
+      pages
+      categories
+      tags
+    ]
+
+    attr_accessor :name, :pages, :categories, :tags
+
+    def initialize(name)
+      @name = name
+      @pages = []
+      @categories = Hash.new { |hash, key| hash[key] = [] }
+      @tags = Hash.new { |hash, key| hash[key] = [] }
+    end
+
+    def add_page(page)
+      @pages << page
+      page.categories.each { |c| @categories[c] << page }
+      page.tags.each { |c| @tags[c] << page }
+    end
+
+    def add_pages(pages)
+      pages.each { |page| self.add_page(page) }
+    end
+
+    def to_liquid(attrs = nil)
+      Hash[(attrs || self.class::ATTRIBUTES_FOR_LIQUID).map { |attribute|
+        [attribute, send(attribute)]
+      }]
+    end
+  end
+
   class CollectionPage < Post
     def initialize(site, source, dir, name, config)
       @config = config
@@ -59,7 +94,7 @@ module Jekyll
     end
 
     def next
-      pages = self.site.data[@config.name]
+      pages = self.site.data['page_collections'][@config.name].pages
       pos = pages.index(self)
 
       if pos && pos < pages.length-1
@@ -70,7 +105,7 @@ module Jekyll
     end
 
     def previous
-      pages = self.site.data[@config.name]
+      pages = self.site.data['page_collections'][@config.name].pages
       pos = pages.index(self)
       if pos && pos > 0
         pages[pos-1]
@@ -93,6 +128,7 @@ module Jekyll
   class PageCollectionGenerator < Generator
     def generate(site)
       collections = site.config['page_collections'] || []
+      site.data['page_collections'] = {}
       collections.each do |collection|
         name = if collection.is_a?(Hash)
                    collection.keys.first
@@ -101,8 +137,10 @@ module Jekyll
                end
         config = PageCollectionConfiguration.new(site, name)
         pages = read_content(site, config, CollectionPage).sort
+        page_collection = PageCollection.new(name)
+        page_collection.add_pages(pages)
         site.pages.concat(pages)
-        site.data[name] = pages
+        site.data['page_collections'][name] = page_collection
       end
     end
 

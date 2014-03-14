@@ -4,21 +4,21 @@ layout: default
 
 <h1>Projects</h1>
 <ul>
-{% for project in site.data['projects'] %}
+{% for project in site.data['page_collections']['projects'].pages %}
   <li><a href="{{ project.url }}">{{ project.title }}</a></li>
 {% endfor %}
 </ul>
 
 <h1>Team</h1>
 <ul>
-{% for team in site.data['team'] %}
+{% for team in site.data['page_collections']['team'].pages %}
   <li><a href="{{ team.url }}">{{ team.title }}</a></li>
 {% endfor %}
 </ul>
 
 <h1>Miscellaneous</h1>
 <ul>
-{% for misc in site.data['miscellaneous'] %}
+{% for misc in site.data['page_collections']['miscellaneous'].pages %}
   <li><a href="{{ misc.url }}">{{ misc.title }}</a></li>
 {% endfor %}
 </ul>

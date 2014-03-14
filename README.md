@@ -49,13 +49,22 @@ page_collections:
 
 ## Usage
 
-Reference the collections from the `site.data` hash like so:
+Each collection is added to a hash at `site.data['page_collections']` where the
+key is the collection name, as specified in the configuration, and the value is
+a `PageCollection` from which you can access `name`, `pages`, `categories`, and
+`tags`.
+
+Reference the collections from the `site.data['page_collections']` hash like so:
 
 ```
-{% for project in site.data['projects'] %}
+{% for project in site.data['page_collections']['projects'].pages %}
   <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
 {% endfor %}
 ```
+
+The `categories` and `tags` attributes of a `PageCollection` hold hashes of
+category or tag names to lists of pages in the collection, similar to how `site`
+holds hashes of categories and tags which key to lists of posts.
 
 ## What's missing?
 
