@@ -33,6 +33,7 @@ following configuration options per collection:
 
 * `permalink`: The permalink style, just like the main configuration option. The
   default value is the same as the value set for the site configuration.
+  Permalinks are always prepended with the collection name.
 * `source`: The name of the directory where the pages will be found.  The
   default is the name of the collection preceeded with an underscore.
 
