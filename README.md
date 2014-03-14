@@ -73,4 +73,4 @@ feeling it will not.
 
 ## Compatibility
 
-`jekyll-page-collections` has been tested with Jekyll 1.4.3.
+`jekyll-page-collections` has been tested with Jekyll 1.4.3 on Ruby 1.9.3.
