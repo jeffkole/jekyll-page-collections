@@ -1,5 +1,7 @@
 module Jekyll
   module PageCollections
+    VERSION = "1.0.0"
+
     class PageCollectionConfiguration
       attr_reader :name
 
