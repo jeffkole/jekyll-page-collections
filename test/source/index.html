@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<h1>Projects</h1>
+<ul>
+{% for project in site.data['projects'] %}
+  <li><a href="{{ project.url }}">{{ project.title }}</a></li>
+{% endfor %}
+</ul>
+
+<h1>Team</h1>
+<ul>
+{% for team in site.data['team'] %}
+  <li><a href="{{ team.url }}">{{ team.title }}</a></li>
+{% endfor %}
+</ul>
+
+<h1>Miscellaneous</h1>
+<ul>
+{% for misc in site.data['miscellaneous'] %}
+  <li><a href="{{ misc.url }}">{{ misc.title }}</a></li>
+{% endfor %}
+</ul>
