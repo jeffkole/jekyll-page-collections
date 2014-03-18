@@ -67,6 +67,17 @@ The `categories` and `tags` attributes of a `PageCollection` hold hashes of
 category or tag names to lists of pages in the collection, similar to how `site`
 holds hashes of categories and tags which key to lists of posts.
 
+### `page_url` Tag
+
+Just like the `post_url` tag can be used to generate links to posts without
+having to hard-code them, this plugin registers a `page_url` tag.  The syntax is
+similar but requires the name of the page collection before the name of the
+page:
+
+```
+{% page_url projects 2014-03-05-jekyll-page-collections %}
+```
+
 ## What's missing?
 
 Pagination.  I have not even tested to see if pagination works, but I get the

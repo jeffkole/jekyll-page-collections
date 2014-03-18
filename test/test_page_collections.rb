@@ -65,6 +65,48 @@ class TestPageCollections < Test::Unit::TestCase
         assert_equal(projects.first, projects[-1].previous)
       end
     end
+
+    context "Using page_url tag" do
+      liquid_context = Liquid::Context.new().tap { |c| c.registers[:site] = site }
+
+      should "fail if the markup is invalid" do
+        markups = [
+          nil,
+          "",
+          "collection",
+          "collection post",
+          "?projects 2014-03-18-this-does-not-exist"
+        ]
+        markups.each do |markup|
+          assert_raises(SyntaxError, "'#{markup}' should have failed") do
+            make_tag(markup)
+          end
+        end
+      end
+
+      should "fail if the indicated collection does not exist" do
+        markup = "non-existent-collection 2014-03-18-this-does-not-exist"
+        tag = make_tag(markup)
+        assert_raises(ArgumentError) do
+          tag.render(liquid_context)
+        end
+      end
+
+      should "fail if the indicated page does not exist" do
+        markup = "projects 2014-03-18-this-does-not-exist"
+        tag = make_tag(markup)
+        assert_raises(ArgumentError) do
+          tag.render(liquid_context)
+        end
+      end
+
+      should "create a url for a valid page in the collection" do
+        markup = "projects 2014-03-05-jekyll-page-collections"
+        tag = make_tag(markup)
+        url = tag.render(liquid_context)
+        assert_equal("/projects/plugins/jekyll/2014/03/05/jekyll-page-collections/", url)
+      end
+    end
   end
 
   private
@@ -76,4 +118,9 @@ class TestPageCollections < Test::Unit::TestCase
       collection.to_s
     end
   end
+
+  def make_tag(markup)
+    Jekyll::PageCollections::PageUrl.new('page_url', markup, '')
+  end
+
 end

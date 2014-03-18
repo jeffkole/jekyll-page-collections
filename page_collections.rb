@@ -158,5 +158,47 @@ module Jekyll
         end
       end
     end
+
+    class PageUrl < Jekyll::Tags::PostUrl
+      TagName = 'page_url'
+      Syntax = /^([\w-]+)\s+((?:.+\/)*\d+-\d+-\d+-.*)$/
+
+      def initialize(tag_name, markup, tokens)
+        if markup && markup.strip =~ Syntax
+          @collection = $1
+          post_name   = $2
+        else
+          raise SyntaxError.new("Syntax Error in '#{TagName}' - Valid syntax: #{TagName} <collection> <page>")
+        end
+
+        super(tag_name, post_name, tokens)
+      end
+
+      def render(context)
+        site = context.registers[:site]
+
+        if site.data['page_collections'] && site.data['page_collections'][@collection]
+          site.data['page_collections'][@collection].pages.each do |p|
+            if @post == p
+              return p.url
+            end
+          end
+
+          raise ArgumentError.new <<-eos
+Could not find page "#{@orig_post}" in collection "#{@collection}" in tag '#{TagName}'.
+
+Make sure the page exists and the name is correct.
+eos
+        else
+          raise ArgumentError.new <<-eos
+Could not find page collection "#{@collection}" in tag '#{TagName}'
+
+Make sure the collection exists and the name is correct.
+eos
+        end
+      end
+    end
   end
 end
+
+Liquid::Template.register_tag(Jekyll::PageCollections::PageUrl::TagName, Jekyll::PageCollections::PageUrl)
