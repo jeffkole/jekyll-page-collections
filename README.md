@@ -78,6 +78,20 @@ page:
 {% page_url projects 2014-03-05-jekyll-page-collections %}
 ```
 
+### `previous` and `next`
+
+Just like a post page has `previous` and `next` attributes that point to other
+posts, page collection pages do too:
+
+```
+{% if page.previous %}
+<p>Previous: <a href="{{ page.previous.url }}">{{ page.previous.title }}</a></p>
+{% endif %}
+{% if page.next %}
+<p>Next: <a href="{{ page.next.url }}">{{ page.next.title }}</a></p>
+{% endif %}
+```
+
 ## What's missing?
 
 Pagination.  I have not even tested to see if pagination works, but I get the
