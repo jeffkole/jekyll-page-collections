@@ -1,3 +1,6 @@
+**Jekyll added official support for [collections][] in [v2][]. I recommend you
+use that instead.**
+
 # jekyll-page-collections
 
 A Jekyll plugin to manage collections of pages that behave just like posts.
@@ -100,3 +103,16 @@ feeling it will not.
 ## Compatibility
 
 `jekyll-page-collections` has been tested with Jekyll 1.4.3 on Ruby 1.9.3.
+
+## Official Jekyll v2 Collections
+
+Jekyll added [collections][] feature in [version 2][v2].  I would recommend using them
+instead of this plugin.  If you are upgrading, the transition is easy:
+
+1. Change `page_collections` to `collections` in `_config.yml`
+2. Add `output: true` to each collection's configuration in `_config.yml`
+3. Reference `site['collection-name']` instead of `site.data['page_collections']['collection-name']`
+4. Hope that someone implements a `{% collection_url %}` tag and pagination
+
+[collections]: https://jekyllrb.com/docs/collections/
+[v2]: https://github.com/jekyll/jekyll/blob/master/History.markdown#200--2014-05-06
