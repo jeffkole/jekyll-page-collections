@@ -112,7 +112,8 @@ instead of this plugin.  If you are upgrading, the transition is easy:
 1. Change `page_collections` to `collections` in `_config.yml`
 2. Add `output: true` to each collection's configuration in `_config.yml`
 3. Reference `site['collection-name']` instead of `site.data['page_collections']['collection-name']`
-4. Hope that someone implements a `{% collection_url %}` tag and pagination
+4. Hope that someone implements a `{% collection_url %}` [tag][tag] and pagination
 
 [collections]: https://jekyllrb.com/docs/collections/
 [v2]: https://github.com/jekyll/jekyll/blob/master/History.markdown#200--2014-05-06
+[tag]: https://github.com/jekyll/jekyll/pull/4624
